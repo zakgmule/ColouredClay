@@ -1,0 +1,2 @@
+# Send visitors on the old Netlify address to the custom domain
+https://colouredclayfinal.netlify.app/*  https://colouredclaymt.com/:splat  301!
