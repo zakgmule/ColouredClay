@@ -575,9 +575,7 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-hero h1{font-family:var(--display);font-weight:400;color:#fff;font-size:clamp(3.2rem,7.4vw,6rem);line-height:.95;margin:0 0 20px}
 .bf-hero h1 span{display:block}
 .bf-hero h1 span + span{color:var(--pink)}
-.bf-hero .bf-lede{color:#f6dce8;font-size:clamp(1.05rem,1.5vw,1.22rem);max-width:30em;margin:0 0 28px}
-.bf-line{border-color:#fff;color:#fff;background:transparent}
-@media (hover:hover){.bf-line:hover{background:#fff;color:#140609}}
+.bf-hero .bf-lede{color:#f6dce8;font-size:clamp(1.05rem,1.5vw,1.22rem);max-width:30em;margin:0}
 .bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .bf-deal{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(235,163,204,.35);border-radius:24px;padding:20px 22px;transition:transform .2s ease,border-color .2s ease}
 .bf-deal:hover{transform:translateY(-3px);border-color:var(--pink)}
@@ -587,7 +585,6 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-deal b em{display:block;font-family:var(--body);font-style:normal;font-weight:700;font-size:.3em;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:4px}
 .bf-deal span{color:#fbeaf1;line-height:1.35}
 .bf-on .hero .options{margin-top:32px}
-.bf-short{display:none}
 @media (max-width:900px){.bf-hero .wrap{grid-template-columns:1fr}}
 /* Phones: keep the hero short. One-line title, the two buttons side by side */
 @media (max-width:600px){
@@ -598,10 +595,6 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-hero h1 span{display:inline}
   .bf-hero h1 span + span{margin-left:.22em}
   .bf-hero .bf-lede{font-size:.98rem;margin:0}
-  .bf-hero .bf-lede{margin-bottom:14px}
-  .bf-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .bf-actions .btn{width:auto;padding:10px 8px;font-size:.92rem;white-space:nowrap;text-align:center}
-  .bf-full{display:none}.bf-short{display:inline}
   .bf-deals{gap:10px}
   .bf-deal{padding:14px;border-radius:20px;gap:4px}
   .bf-deal b{font-size:2.2rem}
@@ -642,10 +635,6 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
           <p class="bf-eyebrow">Until Cyber Monday, 30 November</p>
           <h1><span>Black</span><span>Friday</span></h1>
           <p class="bf-lede">Paint more, save more. Our best offers of the year, with kit discounts applied automatically when you order.</p>
-          <div class="actions bf-actions">
-            <a class="btn btn-red" href="#take-home"><span class="bf-full">Shop Take-Home Kits</span><span class="bf-short">Shop Kits</span></a>
-            <a class="btn bf-line" href="#private"><span class="bf-full">Book A Private Event</span><span class="bf-short">Private Events</span></a>
-          </div>
         </div>
         <div class="bf-deals">
           <a class="bf-deal" href="#take-home">
