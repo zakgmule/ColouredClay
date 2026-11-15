@@ -578,7 +578,8 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-hero h1 span{display:block}
 .bf-hero h1 span + span{color:var(--pink)}
 .bf-hero .bf-lede{color:#f6dce8;font-size:20px;line-height:32px;margin:0}
-.bf-hero .bf-eyebrow{display:inline-block;margin:0;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;line-height:16px;border-radius:999px;padding:4px 12px}
+/* Shared "valid until" date pill (hero + events box) */
+p.bf-date{display:inline-block;flex:none;margin:0;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;line-height:16px;border-radius:999px;padding:4px 12px}
 .bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .bf-deal{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(235,163,204,.35);border-radius:24px;padding:16px;transition:transform .2s ease,border-color .2s ease}
 .bf-deal:hover{transform:translateY(-4px);border-color:var(--pink)}
@@ -595,7 +596,7 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-hero{padding:24px 0}
   .bf-hero .wrap{gap:24px;padding:0 16px}
   .bf-intro{gap:8px}
-  .bf-hero .bf-eyebrow{padding:4px 8px}
+  p.bf-date{padding:4px 8px}
   .bf-title{gap:8px}
   .bf-hero h1{font-size:48px;line-height:44px}
   .bf-hero h1 span{display:inline}
@@ -615,12 +616,10 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   radial-gradient(circle at 92% 0%,rgba(235,163,204,.28),transparent 48%),
   radial-gradient(circle at 0% 100%,rgba(204,0,1,.4),transparent 52%),#140609}
 .bf-promo-text{margin:0;font-size:16px;line-height:24px;color:#fbeaf1}
-.bf-promo-text strong{font-family:var(--display);font-weight:400;font-size:20px;line-height:24px;color:var(--pink);margin-right:8px}
 .bf-code{display:inline-flex;align-items:center;gap:8px;margin:0 4px;padding:0 12px;height:32px;vertical-align:middle;border:1.5px dashed var(--pink);border-radius:999px;background:rgba(235,163,204,.12);color:#fff;font:inherit;font-weight:700;font-size:16px;line-height:24px;letter-spacing:.08em;cursor:pointer}
 .bf-code:hover{background:rgba(235,163,204,.24)}
 .bf-code svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.bf-promo-until{margin:0;flex:none;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;line-height:16px;border-radius:999px;padding:4px 12px}
-@media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px}.bf-promo-text strong{display:block;margin:0 0 4px}.bf-promo-until{padding:4px 8px}}
+@media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px}}
 </style>
 <script>
 /* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
@@ -654,7 +653,7 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
             <h1><span>Black</span><span>Friday</span></h1>
             <p class="bf-lede">Paint more, save more. Our best offers of the year, with kit discounts applied automatically when you order.</p>
           </div>
-          <p class="bf-eyebrow">valid until Cyber Monday, 30 November</p>
+          <p class="bf-date">valid until Cyber Monday, 30 November</p>
         </div>
         <div class="bf-deals">
           <a class="bf-deal" href="#take-home">
@@ -711,8 +710,8 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
         </div>
       </div>
       <div class="bf-promo bf-only" role="note" aria-label="Black Friday event offer">
-        <p class="bf-promo-text"><strong>Black Friday</strong>Get 15% off your booking with code <button class="bf-code" type="button" id="bf-code" aria-label="Copy code BLACKFRIDAY"><span>BLACKFRIDAY</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button> at checkout!</p>
-        <p class="bf-promo-until">Valid until 30 November</p>
+        <p class="bf-promo-text">Get 15% off your booking with code <button class="bf-code" type="button" id="bf-code" aria-label="Copy code BLACKFRIDAY"><span>BLACKFRIDAY</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button> at checkout!</p>
+        <p class="bf-date">valid until Cyber Monday, 30 November</p>
       </div>
       <div class="events" id="event-list"></div>
       <div class="events-empty" id="events-empty" hidden>
