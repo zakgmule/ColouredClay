@@ -1395,7 +1395,7 @@ hook('private-event-form','private-msg',"Thanks! We'll be in touch soon to confi
   function upd(){
     var on=typeof blackFridayOn==='function'&&blackFridayOn(),n=+g.value||0,ok=on&&n>=10;
     dz.value=ok?'Black Friday 10% off (booked by 30 Nov)':'';
-    h.textContent=!on?'':ok?'Black Friday: 10% off applies to this booking.':n>=6?'Book for 10 or more people to get 10% off.':'';
+    h.textContent=!on?'':ok?'10% off applies to this booking.':n>=6?'Book for 10 or more people to get 10% off.':'';
     h.classList.toggle('on',ok);
   }
   g.addEventListener('input',upd);
