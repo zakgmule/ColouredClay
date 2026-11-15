@@ -585,11 +585,6 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-deal b{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.2vw,3.5rem);line-height:1;color:var(--pink)}
 .bf-deal b i{font-style:normal;font-size:.45em;margin-left:4px;color:#fff}
 .bf-deal span{color:#fbeaf1;line-height:1.35}
-.bf-tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px;border-top:1px solid rgba(235,163,204,.35);padding-top:12px}
-.bf-tiers > span{display:flex;flex-direction:column;font-weight:700;color:#fff;padding:0 12px;line-height:1.25}
-.bf-tiers > span:first-child{padding-left:0}
-.bf-tiers > span + span{border-left:1px solid rgba(235,163,204,.35)}
-.bf-tiers em{font-style:normal;font-weight:500;font-size:.85rem;color:#f2c9da}
 /* Private events: one slim row */
 .bf-deal.alt-deal{flex-direction:row;align-items:center;gap:18px;padding:16px 22px;background:var(--pink);border-color:var(--pink);color:#3a1216}
 .bf-deal.alt-deal b{color:var(--red);font-size:clamp(2rem,3vw,2.5rem)}
@@ -614,8 +609,6 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-deals{gap:10px}
   .bf-deal{padding:14px 16px;border-radius:20px;gap:2px}
   .bf-deal b{font-size:2.1rem}
-  .bf-tiers{margin-top:8px;padding-top:10px}
-  .bf-tiers > span{padding:0 8px;font-size:.92rem}
   .bf-deal.alt-deal{padding:12px 16px;gap:12px}
   .bf-deal.alt-deal b{font-size:1.7rem}
   .bf-on .hero .options{margin-top:24px}
@@ -661,7 +654,6 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
           <a class="bf-deal" href="#take-home">
             <small>Take-home kits</small>
             <b>Up to 20%<i>off</i></b>
-            <span class="bf-tiers"><span><em>2 kits</em>10% off</span><span><em>3 kits</em>15% off</span><span><em>4+ kits</em>20% off</span></span>
           </a>
           <a class="bf-deal alt-deal" href="#private">
             <b>10%<i>off</i></b>
