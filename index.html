@@ -568,7 +568,7 @@ main .title + .lede,main .sub + .lede{margin-top:16px}
 html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 /* Black Friday hero (replaces the normal hero while the offer runs).
    Built from Figma "Black Friday Hero" (Coloured Clay file, node 3:83). All sizes on the 4-point grid. */
-.bf-hero{position:relative;overflow:hidden;color:#fff;padding:84px 0;background:
+.bf-hero{position:relative;overflow:hidden;color:#fff;padding:80px 0;background:
   radial-gradient(circle at 88% 12%,rgba(235,163,204,.28),transparent 42%),
   radial-gradient(circle at 4% 105%,rgba(204,0,1,.45),transparent 48%),#140609}
 .bf-hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
@@ -579,7 +579,7 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-hero h1 span + span{color:var(--pink)}
 .bf-hero .bf-lede{color:#f6dce8;font-size:20px;line-height:32px;margin:0}
 .bf-hero .bf-eyebrow{display:inline-block;margin:0;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;line-height:16px;border-radius:999px;padding:4px 12px}
-.bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .bf-deal{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(235,163,204,.35);border-radius:24px;padding:16px;transition:transform .2s ease,border-color .2s ease}
 .bf-deal:hover{transform:translateY(-4px);border-color:var(--pink)}
 .bf-deal small{font-size:12px;line-height:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f2c9da}
@@ -592,9 +592,10 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 @media (max-width:900px){.bf-hero{padding:48px 0}.bf-hero .wrap{grid-template-columns:1fr;gap:32px}}
 /* Phones: one-line title, compact cards */
 @media (max-width:600px){
-  .bf-hero{padding:24px 0 28px}
-  .bf-hero .wrap{gap:16px}
-  .bf-intro{gap:12px}
+  .bf-hero{padding:24px 0}
+  .bf-hero .wrap{gap:24px;padding:0 16px}
+  .bf-intro{gap:8px}
+  .bf-hero .bf-eyebrow{padding:4px 8px}
   .bf-title{gap:8px}
   .bf-hero h1{font-size:48px;line-height:44px}
   .bf-hero h1 span{display:inline}
@@ -653,7 +654,7 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
           <a class="bf-deal" href="#private">
             <small>Private events</small>
             <span class="bf-value"><b>10%<i>off</i></b></span>
-            <span>for groups of 10 or more</span>
+            <span>for groups of 10 or more people</span>
           </a>
         </div>
       </div>
