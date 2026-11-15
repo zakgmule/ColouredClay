@@ -334,11 +334,13 @@ section.block{padding:clamp(48px,6vw,80px) 0}
 .steps p{grid-column:1/-1;margin-top:10px;font-size:.96rem;line-height:1.5}
 /* selectable ceramics */
 .thumbs figure{cursor:pointer;border-radius:18px;outline:none}
-.thumbs figure img{border:3px solid transparent;transition:border-color .15s,transform .15s}
-.thumbs figure:hover img{transform:translateY(-2px)}
-.thumbs figure[aria-pressed="true"] img{border-color:var(--red)}
+/* Selection ring drawn as an overlay on the photo (no gap at the rounded corners); the whole tile lifts on hover so badges stay aligned */
+.thumbs figure{transition:transform .15s}
+@media (hover:hover){.thumbs figure:not(.sold-out):hover{transform:translateY(-2px)}}
+.pic::after{content:"";position:absolute;inset:0;z-index:1;border-radius:16px;box-shadow:inset 0 0 0 3px transparent;pointer-events:none;transition:box-shadow .15s}
+.thumbs figure[aria-pressed="true"] .pic::after{box-shadow:inset 0 0 0 3px var(--red)}
+.thumbs figure:focus-visible .pic::after{box-shadow:inset 0 0 0 3px var(--ink)}
 .thumbs figure[aria-pressed="true"] figcaption{color:var(--red-text)}
-.thumbs figure:focus-visible img{border-color:var(--ink)}
 /* selectable colours */
 .colour{background:none;border:none;padding:0;font:inherit;font-weight:600;font-size:.9rem;color:var(--ink);cursor:pointer}
 .colour i{display:block;width:100%;transition:transform .15s,box-shadow .15s}
@@ -421,9 +423,9 @@ section.block{padding:clamp(48px,6vw,80px) 0}
 .seasonal{margin-top:24px}
 .seasonal-title{font-family:var(--display);font-weight:400;font-size:clamp(1.15rem,1.8vw,1.35rem);line-height:1.15;color:var(--ink);margin:0}
 .seasonal .thumbs{margin-top:16px}
-.price-tag{position:absolute;top:8px;left:8px;z-index:1;background:var(--ink);color:var(--bg);font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none}
-.qty{position:absolute;bottom:8px;right:8px;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:.9rem;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.plus,.minus{position:absolute;top:8px;left:8px;width:28px;height:28px;border-radius:50%;border:none;background:var(--bg);color:var(--ink);font:inherit;font-size:1.2rem;font-weight:700;line-height:1;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.price-tag{position:absolute;bottom:8px;left:8px;z-index:2;background:var(--ink);color:var(--bg);font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none}
+.qty{position:absolute;z-index:2;bottom:8px;right:8px;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:.9rem;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.plus,.minus{position:absolute;z-index:2;top:8px;left:8px;width:28px;height:28px;border-radius:50%;border:none;background:var(--bg);color:var(--ink);font:inherit;font-size:1.2rem;font-weight:700;line-height:1;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
 .plus{left:auto;right:8px}
 .thumbs figure[aria-pressed="true"] .qty,.thumbs figure[aria-pressed="true"] .minus,.thumbs figure[aria-pressed="true"] .plus{display:flex}
 .kit-total{display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:14px;background:var(--card);border:1.5px solid var(--line)}
@@ -513,7 +515,7 @@ section.block{padding:clamp(48px,6vw,80px) 0}
 #take-home .kit-info > .steps:first-child{margin-top:0}
 .thumbs figure.sold-out{cursor:not-allowed}
 .thumbs figure.sold-out img{filter:grayscale(1);opacity:.45}
-.thumbs figure.sold-out:hover img{transform:none}
+
 .thumbs figure.sold-out figcaption{color:var(--ink-soft)}
 .stock-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;background:var(--ink);color:var(--bg);font-size:.78rem;font-weight:700;letter-spacing:.02em;padding:6px 12px;border-radius:999px}
 #events .events-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;margin-top:28px;padding:40px 24px;border:1.5px dashed var(--line);border-radius:28px;color:var(--ink)}
@@ -1219,6 +1221,7 @@ function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cl
     f.setAttribute('role','button');f.setAttribute('tabindex','0');f.setAttribute('aria-pressed','false');
     var img=f.querySelector('img'),pic=mk('span','pic');img.parentNode.insertBefore(pic,img);pic.appendChild(img);
     var q=mk('span','qty');q.setAttribute('aria-hidden','true');pic.appendChild(q);
+    var pt=f.querySelector('.price-tag');if(pt)pic.appendChild(pt);
     if(SOLD_OUT.indexOf(f.dataset.name)>-1){
       f.classList.add('sold-out');f.removeAttribute('aria-pressed');f.setAttribute('aria-disabled','true');f.setAttribute('tabindex','-1');
       f.setAttribute('aria-label',f.dataset.name+', out of stock');pic.appendChild(mk('span','stock-badge','Out of stock'));
