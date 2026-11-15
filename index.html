@@ -585,8 +585,6 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-deal b{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.2vw,3.5rem);line-height:1;color:var(--pink)}
 .bf-deal b i{font-style:normal;font-size:.45em;margin-left:4px;color:#fff}
 .bf-deal span{color:#fbeaf1;line-height:1.35}
-.bf-deal-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.bf-deal .bf-go{font-weight:600;font-size:.92rem;color:#fff;white-space:nowrap}
 .bf-tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px;border-top:1px solid rgba(235,163,204,.35);padding-top:12px}
 .bf-tiers > span{display:flex;flex-direction:column;font-weight:700;color:#fff;padding:0 12px;line-height:1.25}
 .bf-tiers > span:first-child{padding-left:0}
@@ -595,11 +593,12 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 /* Private events: one slim row */
 .bf-deal.alt-deal{flex-direction:row;align-items:center;gap:18px;padding:16px 22px;background:var(--pink);border-color:var(--pink);color:#3a1216}
 .bf-deal.alt-deal b{color:var(--red);font-size:clamp(2rem,3vw,2.5rem)}
-.bf-deal.alt-deal small,.bf-deal.alt-deal span,.bf-deal.alt-deal b i,.bf-deal.alt-deal .bf-go{color:#3a1216}
+.bf-deal.alt-deal small,.bf-deal.alt-deal span,.bf-deal.alt-deal b i{color:#3a1216}
 .bf-deal-txt{display:flex;flex-direction:column;flex:1;min-width:0}
 .bf-on .hero .options{margin-top:32px}
+.bf-short{display:none}
 @media (max-width:900px){.bf-hero .wrap{grid-template-columns:1fr}}
-/* Phones: keep the hero short. One-line title, no buttons (the tiles are the links) */
+/* Phones: keep the hero short. One-line title, the two buttons side by side */
 @media (max-width:600px){
   .bf-hero{padding:24px 0 28px}
   .bf-hero .wrap{gap:18px}
@@ -608,7 +607,10 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-hero h1 span{display:inline}
   .bf-hero h1 span + span{margin-left:.22em}
   .bf-hero .bf-lede{font-size:.98rem;margin:0}
-  .bf-actions{display:none}
+  .bf-hero .bf-lede{margin-bottom:14px}
+  .bf-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .bf-actions .btn{width:auto;padding:10px 8px;font-size:.92rem;white-space:nowrap;text-align:center}
+  .bf-full{display:none}.bf-short{display:inline}
   .bf-deals{gap:10px}
   .bf-deal{padding:14px 16px;border-radius:20px;gap:2px}
   .bf-deal b{font-size:2.1rem}
@@ -616,7 +618,6 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-tiers > span{padding:0 8px;font-size:.92rem}
   .bf-deal.alt-deal{padding:12px 16px;gap:12px}
   .bf-deal.alt-deal b{font-size:1.7rem}
-  .bf-deal.alt-deal .bf-go{display:none}
   .bf-on .hero .options{margin-top:24px}
 }
 </style>
@@ -652,20 +653,19 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
           <h1><span>Black</span><span>Friday</span></h1>
           <p class="bf-lede">Paint more, save more. Our best offers of the year, with kit discounts applied automatically when you order.</p>
           <div class="actions bf-actions">
-            <a class="btn btn-red" href="#take-home">Shop Take-Home Kits</a>
-            <a class="btn bf-line" href="#private">Book A Private Event</a>
+            <a class="btn btn-red" href="#take-home"><span class="bf-full">Shop Take-Home Kits</span><span class="bf-short">Shop Kits</span></a>
+            <a class="btn bf-line" href="#private"><span class="bf-full">Book A Private Event</span><span class="bf-short">Private Events</span></a>
           </div>
         </div>
         <div class="bf-deals">
           <a class="bf-deal" href="#take-home">
-            <span class="bf-deal-top"><small>Take-home kits</small><span class="bf-go">Shop kits &rarr;</span></span>
+            <small>Take-home kits</small>
             <b>Up to 20%<i>off</i></b>
             <span class="bf-tiers"><span><em>2 kits</em>10% off</span><span><em>3 kits</em>15% off</span><span><em>4+ kits</em>20% off</span></span>
           </a>
           <a class="bf-deal alt-deal" href="#private">
             <b>10%<i>off</i></b>
             <span class="bf-deal-txt"><small>Private events</small><span>for groups of 10 or more</span></span>
-            <span class="bf-go">Enquire &rarr;</span>
           </a>
         </div>
       </div>
