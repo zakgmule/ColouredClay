@@ -632,6 +632,9 @@ p.bf-date{display:inline-block;flex:none;margin:0;background:var(--pink);color:#
 .bf-fine{margin:0;font-size:12px;line-height:16px;color:#f2c9da}
 .total-discount span,.total-discount span:last-child{color:var(--red-text);font-weight:700}
 .total-hint{margin:0;color:var(--ink-soft);font-size:12px;line-height:16px;font-weight:400}
+.bf-group-hint{font-weight:400;font-size:12px;line-height:16px;color:var(--ink-soft)}
+.bf-group-hint.on{color:var(--red-text);font-weight:700}
+.bf-group-hint:empty{display:none}
 </style>
 <script>
 /* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
@@ -864,6 +867,9 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
     <div class="wrap">
       <h2 class="title">Private events</h2>
       <p class="lede">Book a pottery painting session for your group at one of our partner venues, or we come to you. Every package includes your ceramic piece, all materials and kiln firing, for groups of 6 or more.</p>
+      <div class="bf-promo bf-only" role="note" aria-label="Black Friday private events offer">
+        <p class="bf-promo-text"><span>Get 10% off private event bookings for 10 or more people. Book by 30 November, even if your event is later.</span></p>
+      </div>
 
       <div class="venues">
         <article class="venue">
@@ -940,7 +946,8 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
             <select name="package" id="f-package"><option value="">Choose a venue first</option></select>
           </label>
           <label>Preferred date<input name="date" type="date"></label>
-          <label>Number of people (min. 6)<input name="group-size" type="number" min="6" placeholder="6 or more"></label>
+          <label>Number of people (min. 6)<input name="group-size" type="number" min="6" placeholder="6 or more"><span class="bf-group-hint" id="bf-group-hint" aria-live="polite"></span></label>
+          <input type="hidden" name="discount" id="f-private-discount">
           <label class="full">Anything else?<textarea name="notes" placeholder="Occasion, timing, dietary needs, and your address if we're coming to you"></textarea></label>
           <button class="btn btn-red" type="submit">Send Booking Request</button>
           <p class="form-msg" id="private-msg" role="status"></p>
@@ -1382,6 +1389,19 @@ function hook(formId,msgId,ok,subject){
   }
 })();
 hook('private-event-form','private-msg',"Thanks! We'll be in touch soon to confirm your event.",'Private event booking request');
+/* Black Friday: 10% off private events for 10+ people, for bookings made by BLACK_FRIDAY_UNTIL */
+(function(){
+  var f=$('private-event-form'),g=f.elements['group-size'],h=$('bf-group-hint'),dz=$('f-private-discount');
+  function upd(){
+    var on=typeof blackFridayOn==='function'&&blackFridayOn(),n=+g.value||0,ok=on&&n>=10;
+    dz.value=ok?'Black Friday 10% off (booked by 30 Nov)':'';
+    h.textContent=!on?'':ok?'Black Friday: 10% off applies to this booking.':n>=6?'Book for 10 or more people to get 10% off.':'';
+    h.classList.toggle('on',ok);
+  }
+  g.addEventListener('input',upd);
+  f.addEventListener('reset',function(){setTimeout(upd);});
+  upd();
+})();
 (function(){
   var d=$('contact-modal'),f=$('contact-form'),m=$('contact-msg'),btn=$('contact-send');
   function view(done){$('contact-view').hidden=done;$('contact-success').hidden=!done;}
