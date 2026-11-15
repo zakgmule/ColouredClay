@@ -620,6 +620,14 @@ p.bf-date{display:inline-block;flex:none;margin:0;background:var(--pink);color:#
 .bf-code:hover{background:rgba(235,163,204,.24)}
 .bf-code svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px;flex-direction:column;align-items:flex-start}}
+/* Black Friday kit tiers box (Take-home kits) and order summary discount */
+.bf-kits-body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.bf-tiers{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.bf-tiers li{display:flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:999px;border:1.5px solid rgba(235,163,204,.35);background:rgba(235,163,204,.12);color:#fff;font-size:16px;line-height:24px}
+.bf-tiers b{color:var(--pink);font-weight:700}
+.bf-fine{margin:0;font-size:12px;line-height:16px;color:#f2c9da}
+.total-discount span,.total-discount span:last-child{color:var(--red-text);font-weight:700}
+.total-hint{margin:4px 0 0;align-self:flex-start;background:var(--pink-soft);color:#3a1216;font-size:12px;line-height:16px;font-weight:700;border-radius:999px;padding:4px 12px}
 </style>
 <script>
 /* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
@@ -735,6 +743,18 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
     <div class="wrap">
       <h2 class="title">Take-home kits</h2>
       <p class="lede">Rather paint at your own pace? Choose a ceramic and up to 6 paints, take it all home, then bring it back and we'll glaze and fire it for you.</p>
+      <div class="bf-promo bf-kits bf-only" role="note" aria-label="Black Friday kit discounts">
+        <div class="bf-kits-body">
+          <p class="bf-promo-text"><span>Order more kits, save more. Discounts are applied automatically when you order.</span></p>
+          <ul class="bf-tiers" aria-label="Kit discounts">
+            <li>2 kits <b>10% off</b></li>
+            <li>3 kits <b>15% off</b></li>
+            <li>4+ kits <b>20% off</b></li>
+          </ul>
+          <p class="bf-fine">The discount is on the kit price only. The &euro;5 refundable deposit per piece stays the same.</p>
+        </div>
+        <p class="bf-date">valid until Cyber Monday, 30 November</p>
+      </div>
       <div class="kit-info">
       <ol class="steps">
         <li><span class="n">1</span><h3>Place your order</h3><p>Choose your pieces and colours, then pick up or delivery.</p></li>
@@ -820,6 +840,8 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
               <input type="hidden" name="kits" id="f-kits" value="0">
               <input type="hidden" name="ceramics" id="f-ceramics">
               <input type="hidden" name="colours" id="f-colours">
+              <input type="hidden" name="discount" id="f-discount">
+              <input type="hidden" name="total" id="f-total">
               <div class="full order" id="order"></div>
               <label class="full">Additional comments<textarea name="comments" placeholder="Anything we should know? (optional)"></textarea></label>
             </fieldset>
@@ -1227,20 +1249,30 @@ function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cl
     w.querySelector('.cminus').addEventListener('click',function(){removeColour(n);});
   });
   /* Price breakdown: kits, deposit, delivery, then the total */
+  /* Black Friday: automatic discount on the kit price only (not the deposit), until BLACK_FRIDAY_UNTIL */
+  function bfOn(){return typeof blackFridayOn==='function'&&blackFridayOn();}
+  function bfPct(k){if(!bfOn())return 0;return k>=4?20:k===3?15:k===2?10:0;}
   function renderTotal(){
-    var k=kits(),opt=$('f-delivery').value,eur=function(n){return '\u20ac'+n;};
+    var k=kits(),opt=$('f-delivery').value,eur=function(n){n=Math.round(n*100)/100;return '\u20ac'+(n%1?n.toFixed(2):n);};
     /* Pieces with their own price (data-price) get their own line; the rest are standard kits */
     var std=0,special=[],kitSum=0;
     figs.forEach(function(f){var n=counts[f.dataset.name]||0;if(!n)return;var pr=+f.dataset.price||KIT_PRICE;kitSum+=n*pr;if(f.dataset.price)special.push({name:f.dataset.name,n:n,pr:pr});else std+=n;});
-    var sum=kitSum+k*5;
+    var pct=bfPct(k),disc=Math.round(kitSum*pct)/100,sum=kitSum-disc+k*5;
+    var totalTxt=opt==='Delivery'?eur(sum+5)+' to '+eur(sum+10):eur(sum);
+    /* Sent with the booking so the payment link uses the discounted price */
+    $('f-discount').value=pct?'Black Friday '+pct+'% off kits (\u2212'+eur(disc)+')':'';
+    $('f-total').value=k?totalTxt+(opt==='Delivery'?' incl. delivery':''):'';
     tot.hidden=!k;tot.innerHTML='';if(!k)return;
     function row(label,val,cls){var r=mk('div','total-row'+(cls?' '+cls:''));r.appendChild(mk('span',null,label));r.appendChild(mk('span',null,val));tot.appendChild(r);}
     if(std)row('Pottery kit'+(std>1?'s':'')+' ('+std+' \u00d7 '+eur(KIT_PRICE)+')',eur(std*KIT_PRICE));
     special.forEach(function(s){row(s.name+' kit'+(s.n>1?'s':'')+' ('+s.n+' \u00d7 '+eur(s.pr)+')',eur(s.n*s.pr));});
+    if(pct)row('Black Friday '+pct+'% off','\u2212'+eur(disc),'total-discount');
     row('Refundable deposit ('+k+' \u00d7 '+eur(5)+')',eur(k*5));
     if(opt==='Delivery')row('Delivery (confirmed by email)',eur(5)+' to '+eur(10));
     else if(opt==='Pick up')row('Pick up from Madliena','Free');
-    row('Total',opt==='Delivery'?eur(sum+5)+' to '+eur(sum+10):eur(sum),'total-sum');
+    row('Total',totalTxt,'total-sum');
+    /* Nudge towards the next discount tier */
+    if(bfOn()&&k<4){var next=k+1,np=next===2?10:next===3?15:20;tot.appendChild(mk('p','total-hint','Add 1 more kit to get '+np+'% off your kits'));}
   }
   $('f-delivery').addEventListener('change',renderTotal);
   /* Clear the kit after a booking is sent */
@@ -1294,7 +1326,7 @@ function hook(formId,msgId,ok,subject){
   var f=$('pickup-form'),m=$('pickup-msg'),btn=$('pickup-submit');
   function order(){
     var cer=($('f-ceramics').value||'').split(', ').map(function(x){var r=x.match(/^(\d+) x (.+)$/);return r?{name:r[2],count:+r[1]}:null;}).filter(Boolean);
-    return {quantity:+$('f-kits').value||0,ceramics:cer,colours:(f.elements.colours.value.match(/\d{2}/g)||[]),
+    return {quantity:+$('f-kits').value||0,discount:$("f-discount").value,total:$("f-total").value,ceramics:cer,colours:(f.elements.colours.value.match(/\d{2}/g)||[]),
       delivery:f.elements.delivery.value,timeSlot:$('f-slot').value,address:f.elements.address.value,city:f.elements.city.value,
       name:(f.elements.name.value+' '+f.elements.surname.value).trim(),email:f.elements.email.value,phone:f.elements.phone.value,comments:f.elements.comments.value};
   }
