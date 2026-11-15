@@ -640,11 +640,9 @@ p.bf-date{display:inline-block;flex:none;margin:0;background:var(--pink);color:#
 .bf-group-hint{font-weight:400;font-size:12px;line-height:16px;color:var(--ink-soft)}
 .bf-group-hint.on{color:var(--red-text);font-weight:700}
 .bf-group-hint:empty{display:none}
-/* Book your private event: same container as Book your kit */
-.enquire{background:var(--blush);border-radius:32px;padding:40px}
-.alt .enquire{background:var(--bg)}
 .enquire .form-msg:empty{display:none}
-@media (max-width:600px){.enquire{padding:16px}}
+/* Book your private event: Send button on the right (desktop) */
+#private-event-form > .btn{grid-column:1/-1;justify-self:end}
 </style>
 <script>
 /* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
