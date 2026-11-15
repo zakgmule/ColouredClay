@@ -566,41 +566,47 @@ main .title + .lede,main .sub + .lede{margin-top:16px}
 @media (max-width:520px){.btn:not(#contact-open){display:flex;width:100%;flex-basis:100%;align-self:stretch;white-space:normal;text-align:center}}
 /* Black Friday: .bf-only shows only while the offer runs, .bf-off hides while it runs (see BLACK_FRIDAY_UNTIL) */
 html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
-/* Black Friday hero (replaces the normal hero while the offer runs) */
-.bf-hero{position:relative;overflow:hidden;color:#fff;padding:clamp(40px,6vw,84px) 0;background:
+/* Black Friday hero (replaces the normal hero while the offer runs).
+   Built from Figma "Black Friday Hero" (Coloured Clay file, node 3:83). All sizes on the 4-point grid. */
+.bf-hero{position:relative;overflow:hidden;color:#fff;padding:84px 0;background:
   radial-gradient(circle at 88% 12%,rgba(235,163,204,.28),transparent 42%),
   radial-gradient(circle at 4% 105%,rgba(204,0,1,.45),transparent 48%),#140609}
-.bf-hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center}
-.bf-hero .bf-eyebrow{display:inline-block;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;border-radius:999px;padding:5px 14px;margin:0 0 18px}
-.bf-hero h1{font-family:var(--display);font-weight:400;color:#fff;font-size:clamp(3.2rem,7.4vw,6rem);line-height:.95;margin:0 0 20px}
+.bf-hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.bf-intro{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.bf-title{display:flex;flex-direction:column;gap:24px}
+.bf-hero h1{font-family:var(--display);font-weight:400;color:#fff;font-size:96px;line-height:92px;margin:0}
 .bf-hero h1 span{display:block}
 .bf-hero h1 span + span{color:var(--pink)}
-.bf-hero .bf-lede{color:#f6dce8;font-size:clamp(1.05rem,1.5vw,1.22rem);max-width:30em;margin:0}
-.bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.bf-deal{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(235,163,204,.35);border-radius:24px;padding:20px 22px;transition:transform .2s ease,border-color .2s ease}
-.bf-deal:hover{transform:translateY(-3px);border-color:var(--pink)}
-.bf-deal small{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f2c9da}
-.bf-deal b{margin-top:auto;font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.2vw,3.5rem);line-height:1;color:var(--pink)}
-.bf-deal b i{font-style:normal;font-size:.45em;margin-left:4px;color:#fff}
-.bf-deal b em{display:block;font-family:var(--body);font-style:normal;font-weight:700;font-size:.3em;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:4px}
-.bf-deal span{color:#fbeaf1;line-height:1.35}
+.bf-hero .bf-lede{color:#f6dce8;font-size:20px;line-height:32px;margin:0}
+.bf-hero .bf-eyebrow{display:inline-block;margin:0;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;line-height:16px;border-radius:999px;padding:4px 12px}
+.bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.bf-deal{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(235,163,204,.35);border-radius:24px;padding:16px;transition:transform .2s ease,border-color .2s ease}
+.bf-deal:hover{transform:translateY(-4px);border-color:var(--pink)}
+.bf-deal small{font-size:12px;line-height:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f2c9da}
+.bf-value{display:flex;flex-direction:column}
+.bf-value em{font-style:normal;font-weight:700;font-size:16px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.bf-value b{display:flex;align-items:baseline;gap:4px;font-family:var(--display);font-weight:400;font-size:56px;line-height:56px;color:var(--pink)}
+.bf-value b i{font-style:normal;font-size:24px;line-height:24px;color:#fff}
+.bf-deal > span{font-size:16px;line-height:20px;color:#fbeaf1}
 .bf-on .hero .options{margin-top:32px}
-@media (max-width:900px){.bf-hero .wrap{grid-template-columns:1fr}}
-/* Phones: keep the hero short. One-line title, the two buttons side by side */
+@media (max-width:900px){.bf-hero{padding:48px 0}.bf-hero .wrap{grid-template-columns:1fr;gap:32px}}
+/* Phones: one-line title, compact cards */
 @media (max-width:600px){
   .bf-hero{padding:24px 0 28px}
-  .bf-hero .wrap{gap:18px}
-  .bf-hero .bf-eyebrow{padding:4px 12px;margin-bottom:12px}
-  .bf-hero h1{font-size:clamp(2.4rem,11vw,3rem);margin-bottom:10px}
+  .bf-hero .wrap{gap:16px}
+  .bf-intro{gap:12px}
+  .bf-title{gap:8px}
+  .bf-hero h1{font-size:48px;line-height:44px}
   .bf-hero h1 span{display:inline}
-  .bf-hero h1 span + span{margin-left:.22em}
-  .bf-hero .bf-lede{font-size:.98rem;margin:0}
-  .bf-deals{gap:10px}
-  .bf-deal{padding:14px;border-radius:20px;gap:4px}
-  .bf-deal b{font-size:2.2rem}
-  .bf-deal span{font-size:.86rem}
-  .bf-deal small{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
-  .bf-deal b em{font-size:.32em;margin-bottom:2px}
+  .bf-hero h1 span + span{margin-left:12px}
+  .bf-hero .bf-lede{font-size:16px;line-height:24px}
+  .bf-deals{gap:8px}
+  .bf-deal{padding:12px;border-radius:20px}
+  .bf-deal small{font-size:10px;line-height:16px;letter-spacing:.04em;white-space:nowrap}
+  .bf-value em{font-size:10px;line-height:12px}
+  .bf-value b{font-size:40px;line-height:40px}
+  .bf-value b i{font-size:16px;line-height:16px}
+  .bf-deal > span{font-size:12px;line-height:16px}
   .bf-on .hero .options{margin-top:24px}
 }
 </style>
@@ -631,20 +637,22 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
     <!-- Black Friday hero: shows instead of the normal hero until BLACK_FRIDAY_UNTIL -->
     <div class="bf-hero bf-only">
       <div class="wrap">
-        <div>
-          <p class="bf-eyebrow">Valid until Cyber Monday, 30 November</p>
-          <h1><span>Black</span><span>Friday</span></h1>
-          <p class="bf-lede">Paint more, save more. Our best offers of the year, with kit discounts applied automatically when you order.</p>
+        <div class="bf-intro">
+          <div class="bf-title">
+            <h1><span>Black</span><span>Friday</span></h1>
+            <p class="bf-lede">Paint more, save more. Our best offers of the year, with kit discounts applied automatically when you order.</p>
+          </div>
+          <p class="bf-eyebrow">valid until Cyber Monday, 30 November</p>
         </div>
         <div class="bf-deals">
           <a class="bf-deal" href="#take-home">
             <small>Take-home kits</small>
-            <b><em>up to</em>20%<i>off</i></b>
+            <span class="bf-value"><em>up to</em><b>20%<i>off</i></b></span>
             <span>the more kits you order</span>
           </a>
           <a class="bf-deal" href="#private">
             <small>Private events</small>
-            <b>10%<i>off</i></b>
+            <span class="bf-value"><b>10%<i>off</i></b></span>
             <span>for groups of 10 or more</span>
           </a>
         </div>
