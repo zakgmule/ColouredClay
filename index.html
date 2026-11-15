@@ -564,9 +564,39 @@ main .title + .lede,main .sub + .lede{margin-top:16px}
 #private .venues,#private .location-card,#private .enquire,#private .team{margin-top:24px}
 /* Mobile: every button spans its container (except Contact us in the top bar) */
 @media (max-width:520px){.btn:not(#contact-open){display:flex;width:100%;flex-basis:100%;align-self:stretch;white-space:normal;text-align:center}}
+/* Black Friday: everything with .bf-only shows only while the offer runs (see BLACK_FRIDAY_UNTIL) */
+.bf-only{display:none!important}
+.bf-bar{background:#140609;color:#fff;border-bottom:2px solid var(--pink);font-size:.95rem;line-height:1.35}
+.bf-on .bf-bar{display:block!important}
+.bf-bar .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 18px;padding-top:10px;padding-bottom:10px;text-align:center}
+.bf-tag{font-family:var(--display);font-weight:400;font-size:1.1rem;color:var(--pink);letter-spacing:.01em}
+.bf-offers{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px}
+.bf-offers a{color:#fff;text-decoration:none}
+.bf-offers a:hover{text-decoration:underline;text-decoration-color:var(--pink);text-underline-offset:4px}
+.bf-offers strong{color:var(--pink-soft);font-weight:700}
+.bf-until{color:#f2c9da;font-size:.88rem}
+@media (max-width:640px){.bf-bar{font-size:.86rem}.bf-bar .wrap{gap:4px 12px}.bf-offers{flex-direction:column;gap:2px}}
 </style>
+<script>
+/* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
+   After it, the banner, promo boxes and automatic kit discounts all switch off by themselves. */
+var BLACK_FRIDAY_UNTIL = "2026-11-30";
+function blackFridayOn(){var d=new Date(),t=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");return t<=BLACK_FRIDAY_UNTIL;}
+if(blackFridayOn())document.documentElement.classList.add('bf-on');
+</script>
 </head>
 <body>
+
+<div class="bf-bar bf-only" role="region" aria-label="Black Friday offers">
+  <div class="wrap">
+    <b class="bf-tag">Black Friday</b>
+    <span class="bf-offers">
+      <a href="#take-home">Take-home kits: <strong>10% off 2</strong> &middot; <strong>15% off 3</strong> &middot; <strong>20% off 4+</strong></a>
+      <a href="#private">Private events for 10+ people: <strong>10% off</strong></a>
+    </span>
+    <span class="bf-until">Until Cyber Monday, 30 Nov</span>
+  </div>
+</div>
 
 <header class="top">
   <div class="wrap">
