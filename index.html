@@ -578,18 +578,14 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
 .bf-hero .bf-lede{color:#f6dce8;font-size:clamp(1.05rem,1.5vw,1.22rem);max-width:30em;margin:0 0 28px}
 .bf-line{border-color:#fff;color:#fff;background:transparent}
 @media (hover:hover){.bf-line:hover{background:#fff;color:#140609}}
-.bf-deals{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.bf-deals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .bf-deal{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(235,163,204,.35);border-radius:24px;padding:20px 22px;transition:transform .2s ease,border-color .2s ease}
 .bf-deal:hover{transform:translateY(-3px);border-color:var(--pink)}
 .bf-deal small{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f2c9da}
-.bf-deal b{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.2vw,3.5rem);line-height:1;color:var(--pink)}
+.bf-deal b{margin-top:auto;font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.2vw,3.5rem);line-height:1;color:var(--pink)}
 .bf-deal b i{font-style:normal;font-size:.45em;margin-left:4px;color:#fff}
+.bf-deal b em{display:block;font-family:var(--body);font-style:normal;font-weight:700;font-size:.3em;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:4px}
 .bf-deal span{color:#fbeaf1;line-height:1.35}
-/* Private events: one slim row */
-.bf-deal.alt-deal{flex-direction:row;align-items:center;gap:18px;padding:16px 22px;background:var(--pink);border-color:var(--pink);color:#3a1216}
-.bf-deal.alt-deal b{color:var(--red);font-size:clamp(2rem,3vw,2.5rem)}
-.bf-deal.alt-deal small,.bf-deal.alt-deal span,.bf-deal.alt-deal b i{color:#3a1216}
-.bf-deal-txt{display:flex;flex-direction:column;flex:1;min-width:0}
 .bf-on .hero .options{margin-top:32px}
 .bf-short{display:none}
 @media (max-width:900px){.bf-hero .wrap{grid-template-columns:1fr}}
@@ -607,10 +603,11 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-actions .btn{width:auto;padding:10px 8px;font-size:.92rem;white-space:nowrap;text-align:center}
   .bf-full{display:none}.bf-short{display:inline}
   .bf-deals{gap:10px}
-  .bf-deal{padding:14px 16px;border-radius:20px;gap:2px}
-  .bf-deal b{font-size:2.1rem}
-  .bf-deal.alt-deal{padding:12px 16px;gap:12px}
-  .bf-deal.alt-deal b{font-size:1.7rem}
+  .bf-deal{padding:14px;border-radius:20px;gap:4px}
+  .bf-deal b{font-size:2.2rem}
+  .bf-deal span{font-size:.86rem}
+  .bf-deal small{font-size:.68rem;letter-spacing:.04em;white-space:nowrap}
+  .bf-deal b em{font-size:.32em;margin-bottom:2px}
   .bf-on .hero .options{margin-top:24px}
 }
 </style>
@@ -653,11 +650,13 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
         <div class="bf-deals">
           <a class="bf-deal" href="#take-home">
             <small>Take-home kits</small>
-            <b>Up to 20%<i>off</i></b>
+            <b><em>up to</em>20%<i>off</i></b>
+            <span>the more kits you order</span>
           </a>
-          <a class="bf-deal alt-deal" href="#private">
+          <a class="bf-deal" href="#private">
+            <small>Private events</small>
             <b>10%<i>off</i></b>
-            <span class="bf-deal-txt"><small>Private events</small><span>for groups of 10 or more</span></span>
+            <span>for groups of 10 or more</span>
           </a>
         </div>
       </div>
