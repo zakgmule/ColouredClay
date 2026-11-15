@@ -615,11 +615,11 @@ p.bf-date{display:inline-block;flex:none;margin:0;background:var(--pink);color:#
 .bf-promo{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding:16px 24px;border-radius:24px;color:#fff;background:
   radial-gradient(circle at 92% 0%,rgba(235,163,204,.28),transparent 48%),
   radial-gradient(circle at 0% 100%,rgba(204,0,1,.4),transparent 52%),#140609}
-.bf-promo-text{margin:0;font-size:16px;line-height:24px;color:#fbeaf1}
-.bf-code{display:inline-flex;align-items:center;gap:8px;margin:0 4px;padding:0 12px;height:32px;vertical-align:middle;border:1.5px dashed var(--pink);border-radius:999px;background:rgba(235,163,204,.12);color:#fff;font:inherit;font-weight:700;font-size:16px;line-height:24px;letter-spacing:.08em;cursor:pointer}
+.bf-promo-text{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:16px;line-height:24px;color:#fbeaf1}
+.bf-code{display:inline-flex;align-items:center;gap:8px;margin:0;padding:0 12px;height:32px;border:1.5px dashed var(--pink);border-radius:999px;background:rgba(235,163,204,.12);color:#fff;font:inherit;font-weight:700;font-size:16px;line-height:24px;letter-spacing:.08em;cursor:pointer}
 .bf-code:hover{background:rgba(235,163,204,.24)}
 .bf-code svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px;flex-direction:column;justify-content:center;text-align:center}}
+@media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px;flex-direction:column;justify-content:center;text-align:center}.bf-promo-text{justify-content:center}}
 </style>
 <script>
 /* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
@@ -710,7 +710,7 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
         </div>
       </div>
       <div class="bf-promo bf-only" role="note" aria-label="Black Friday event offer">
-        <p class="bf-promo-text">Get 15% off your booking with code <button class="bf-code" type="button" id="bf-code" aria-label="Copy code BLACKFRIDAY"><span>BLACKFRIDAY</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button> at checkout!</p>
+        <p class="bf-promo-text"><span>Get 15% off your booking with code</span><button class="bf-code" type="button" id="bf-code" aria-label="Copy code BLACKFRIDAY"><span>BLACKFRIDAY</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button><span>at checkout!</span></p>
         <p class="bf-date">valid until Cyber Monday, 30 November</p>
       </div>
       <div class="events" id="event-list"></div>
