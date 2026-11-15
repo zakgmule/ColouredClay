@@ -610,6 +610,17 @@ html:not(.bf-on) .bf-only,.bf-on .bf-off{display:none!important}
   .bf-deal > span{font-size:12px;line-height:16px}
   .bf-on .hero .options{margin-top:24px}
 }
+/* Black Friday promo box in Upcoming events (4-point grid) */
+.bf-promo{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding:16px 24px;border-radius:24px;color:#fff;background:
+  radial-gradient(circle at 92% 0%,rgba(235,163,204,.28),transparent 48%),
+  radial-gradient(circle at 0% 100%,rgba(204,0,1,.4),transparent 52%),#140609}
+.bf-promo-text{margin:0;font-size:16px;line-height:24px;color:#fbeaf1}
+.bf-promo-text strong{font-family:var(--display);font-weight:400;font-size:20px;line-height:24px;color:var(--pink);margin-right:8px}
+.bf-code{display:inline-flex;align-items:center;gap:8px;margin:0 4px;padding:0 12px;height:32px;vertical-align:middle;border:1.5px dashed var(--pink);border-radius:999px;background:rgba(235,163,204,.12);color:#fff;font:inherit;font-weight:700;font-size:16px;line-height:24px;letter-spacing:.08em;cursor:pointer}
+.bf-code:hover{background:rgba(235,163,204,.24)}
+.bf-code svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bf-promo-until{margin:0;flex:none;background:var(--pink);color:#3a1216;font-weight:700;font-size:12px;line-height:16px;border-radius:999px;padding:4px 12px}
+@media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px}.bf-promo-text strong{display:block;margin:0 0 4px}.bf-promo-until{padding:4px 8px}}
 </style>
 <script>
 /* ===== BLACK FRIDAY ===== Offers run until the end of this date (YYYY-MM-DD).
@@ -698,6 +709,10 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
           <h2 class="title">Upcoming events</h2>
           <p class="lede">Grab a ticket, bring a friend and come paint with us. New dates are announced on Instagram first.</p>
         </div>
+      </div>
+      <div class="bf-promo bf-only" role="note" aria-label="Black Friday event offer">
+        <p class="bf-promo-text"><strong>Black Friday</strong>Get 15% off your booking with code <button class="bf-code" type="button" id="bf-code" aria-label="Copy code BLACKFRIDAY"><span>BLACKFRIDAY</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button> at checkout!</p>
+        <p class="bf-promo-until">Valid until 30 November</p>
       </div>
       <div class="events" id="event-list"></div>
       <div class="events-empty" id="events-empty" hidden>
@@ -1360,6 +1375,15 @@ hook('private-event-form','private-msg',"Thanks! We'll be in touch soon to confi
   d.addEventListener('click',function(e){if(e.target!==d)return;var r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();});
 })();
 
+/* Black Friday code chip: tap to copy */
+(function(){
+  var b=$('bf-code');if(!b)return;var label=b.querySelector('span'),code='BLACKFRIDAY',t;
+  function done(ok){label.textContent=ok?'Copied!':code;b.setAttribute('aria-label',ok?'Code copied':'Copy code '+code);clearTimeout(t);t=setTimeout(function(){label.textContent=code;b.setAttribute('aria-label','Copy code '+code);},1600);}
+  b.addEventListener('click',function(){
+    function fallback(){try{var ta=document.createElement('textarea');ta.value=code;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=document.execCommand('copy');ta.remove();done(ok);}catch(e){done(false);}}
+    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(code).then(function(){done(true);},fallback);else fallback();
+  });
+})();
 /* Jump links: scroll with script so they work inside any viewer */
 (function(){
   document.addEventListener('click',function(e){
