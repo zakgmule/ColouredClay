@@ -2,6 +2,43 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
+<script>
+/* ===== 1 DECEMBER LAUNCH (Malta time) =====
+   Until 00:00 on 1 December 2026 (Malta time, CET = UTC+1) visitors get the Black Friday site, black-friday.html,
+   shown at the normal address. From that exact moment they get the new site (index.html); Black Friday pages
+   left open switch over by themselves. A wrong device clock is corrected with the server's clock.
+   After 1 December this block and black-friday.html can be deleted.
+   Testing (not on colouredclaymt.com): add ?now=2026-11-30T23:59:50 to fake the Malta time for this browser tab. */
+(function(PAGE){
+  var END=Date.parse("2026-12-01T00:00:00+01:00"),off=0,fake=false,ss=null,timer;
+  try{ss=window.sessionStorage;off=+ss.getItem('cc-off')||0;fake=ss.getItem('cc-fake')==='1';}catch(e){}
+  function keep(k,v){try{if(v==null)ss.removeItem(k);else ss.setItem(k,v);}catch(e){}}
+  var q=!/(^|\.)colouredclaymt\.com$/.test(location.hostname)&&location.search.match(/[?&]now=([^&]+)/);
+  if(q){var t=decodeURIComponent(q[1]);if(!/(Z|[+-]\d\d:?\d\d)$/.test(t))t+="+01:00";t=Date.parse(t);if(!isNaN(t)){off=t-Date.now();fake=true;keep('cc-off',off);keep('cc-fake','1');}}
+  window.ccNow=function(){return Date.now()+off;};
+  function check(){
+    var before=ccNow()<END;
+    if(PAGE==='new'&&before){location.replace('/black-friday.html'+location.hash);return true;}
+    if(PAGE==='bf'&&!before){if(location.pathname==='/')location.reload();else location.replace('/'+location.hash);return true;}
+    return false;
+  }
+  function arm(){clearTimeout(timer);var ms=END-ccNow();if(ms>0)timer=setTimeout(function(){if(!check())arm();},Math.min(ms+50,86400000));}
+  if(check())return;
+  if(PAGE==='bf'){
+    try{history.replaceState(null,'','/'+location.hash);}catch(e){}
+    arm();
+    document.addEventListener('visibilitychange',function(){if(!document.hidden)check();});
+  }
+  if(!fake&&/^https?:$/.test(location.protocol)&&window.fetch){
+    var t0=Date.now();
+    fetch('/',{method:'HEAD',cache:'no-store'}).then(function(r){
+      var d=Date.parse(r.headers.get('Date')),t1=Date.now();if(isNaN(d))return;
+      var o=d+500-(t0+t1)/2;
+      if(Math.abs(o)>5000){off=o;keep('cc-off',o);if(!check()&&PAGE==='bf')arm();}else if(off){keep('cc-off',null);}
+    }).catch(function(){});
+  }
+})('new');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
 <title>Coloured Clay | Pottery painting in Malta</title>
@@ -617,11 +654,10 @@ html:not(.xmas-on) .xmas-only,.banner-on .banner-off{display:none!important}
 .gift-body .lede{margin:0}
 .gift-body .btn{margin-top:4px}
 @media (max-width:760px){.gift{grid-template-columns:1fr;gap:16px;padding:16px;border-radius:24px}}
-/* Ceramic tags: New (top left, hidden once selected), Not for gift box (under the name) */
+/* Ceramic tags on the photo: New and Not for gift box (top left, hidden once selected, when the - and + buttons show) */
 .new-tag{position:absolute;z-index:2;top:8px;left:8px;background:var(--pink);color:#3a1216;font-size:12px;font-weight:700;line-height:16px;padding:4px 8px;border-radius:999px;pointer-events:none}
-.thumbs figure[aria-pressed="true"] .new-tag{display:none}
-.gift-no{display:block;width:fit-content;margin:4px auto 0;font-size:12px;font-weight:600;line-height:16px;padding:0 8px;border-radius:999px;text-align:center}
-.gift-no{color:var(--ink-soft);border:1px solid var(--line);background:var(--card)}
+.thumbs figure[aria-pressed="true"] .new-tag,.thumbs figure[aria-pressed="true"] .gift-no{display:none}
+.gift-no{position:absolute;z-index:2;top:8px;left:8px;max-width:calc(100% - 16px);background:var(--card);color:var(--ink);font-size:12px;font-weight:700;line-height:16px;padding:4px 8px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none}
 /* Order form: returning customer, packaging and extras */
 .form label.check{flex-direction:row;align-items:center;gap:12px;font-weight:500;cursor:pointer}
 .form label.check input{width:20px;height:20px;padding:0;margin:0;flex:none;accent-color:var(--red)}
@@ -1296,6 +1332,7 @@ function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cl
     var q=mk('span','qty');q.setAttribute('aria-hidden','true');pic.appendChild(q);
     pic.appendChild(mk('span','price-tag','\u20ac'+f.dataset.price));
     if(f.hasAttribute('data-new'))pic.appendChild(mk('span','new-tag','New'));
+    var gn=f.querySelector('.gift-no');if(gn)pic.appendChild(gn);
     if(SOLD_OUT.indexOf(f.dataset.name)>-1){
       f.classList.add('sold-out');f.removeAttribute('aria-pressed');f.setAttribute('aria-disabled','true');f.setAttribute('tabindex','-1');
       f.setAttribute('aria-label',f.dataset.name+', out of stock');pic.appendChild(mk('span','stock-badge','Out of stock'));
