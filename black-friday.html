@@ -663,9 +663,6 @@ p.bf-date{display:inline-block;flex:none;margin:0;background:var(--pink);color:#
   radial-gradient(circle at 92% 0%,rgba(235,163,204,.28),transparent 48%),
   radial-gradient(circle at 0% 100%,rgba(204,0,1,.4),transparent 52%),#140609}
 .bf-promo-text{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:16px;line-height:24px;color:#fbeaf1}
-.bf-code{display:inline-flex;align-items:center;gap:8px;margin:0;padding:0 12px;height:32px;border:1.5px dashed var(--pink);border-radius:999px;background:rgba(235,163,204,.12);color:#fff;font:inherit;font-weight:700;font-size:16px;line-height:24px;letter-spacing:.08em;cursor:pointer}
-.bf-code:hover{background:rgba(235,163,204,.24)}
-.bf-code svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:600px){.bf-promo{padding:16px;border-radius:20px;gap:12px;flex-direction:column;align-items:flex-start}}
 /* Black Friday kit tiers box (Take-home kits) and order summary discount */
 .bf-kits-body{display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -770,9 +767,6 @@ if(blackFridayOn())document.documentElement.classList.add('bf-on');
           <h2 class="title">Upcoming events</h2>
           <p class="lede">Grab a ticket, bring a friend and come paint with us. New dates are announced on Instagram first.</p>
         </div>
-      </div>
-      <div class="bf-promo bf-only" role="note" aria-label="Black Friday event offer">
-        <p class="bf-promo-text"><span>Get 15% off your booking with code</span><button class="bf-code" type="button" id="bf-code" aria-label="Copy code BLACKFRIDAY"><span>BLACKFRIDAY</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button><span>at checkout!</span></p>
       </div>
       <div class="events" id="event-list"></div>
       <div class="events-empty" id="events-empty" hidden>
@@ -1478,15 +1472,6 @@ hook('private-event-form','private-msg',"Thanks! We'll be in touch soon to confi
   d.addEventListener('click',function(e){if(e.target!==d)return;var r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();});
 })();
 
-/* Black Friday code chip: tap to copy */
-(function(){
-  var b=$('bf-code');if(!b)return;var label=b.querySelector('span'),code='BLACKFRIDAY',t;
-  function done(ok){label.textContent=ok?'Copied!':code;b.setAttribute('aria-label',ok?'Code copied':'Copy code '+code);clearTimeout(t);t=setTimeout(function(){label.textContent=code;b.setAttribute('aria-label','Copy code '+code);},1600);}
-  b.addEventListener('click',function(){
-    function fallback(){try{var ta=document.createElement('textarea');ta.value=code;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=document.execCommand('copy');ta.remove();done(ok);}catch(e){done(false);}}
-    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(code).then(function(){done(true);},fallback);else fallback();
-  });
-})();
 /* Jump links: scroll with script so they work inside any viewer */
 (function(){
   document.addEventListener('click',function(e){
